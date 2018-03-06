@@ -43,21 +43,4 @@ node {
       ]
     ])
   }
-  stage('CD-Deploy') {
-    step([$class: 'UCDeployPublisher',
-      siteName: 'local',
-      deploy: [
-        $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
-        deployApp: 'DEMO',
-        deployEnv: 'TEST',
-        deployProc: 'Deploy',
-        createProcess: [
-          $class: 'com.urbancode.jenkins.plugins.ucdeploy.ProcessHelper$CreateProcessBlock',
-          processComponent: 'Deploy'
-        ],
-        deployVersions: 'liberty_demo:demo',
-        deployOnlyChanged: false
-      ]
-    ])
-  }
 }
