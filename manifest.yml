@@ -1,9 +1,8 @@
----
 applications:
-- instances: 1
-  timeout: 180
-  name: LibertyProject
-  buildpack: liberty-for-java
-  path: ./target/MyProject-1.0-SNAPSHOT.zip
+- path: target/JavaHelloWorldApp.war
   memory: 512M
-  random-route: true
+  instances: 1
+  domain: mybluemix.net
+  name: SampleWebsphereApp
+  host: SampleWebsphereApp
+  disk_quota: 1024M
