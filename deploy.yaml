@@ -12,7 +12,7 @@ spec:
     nodePort: 31999
   selector:
     app: demo
-    tier: frontent
+    tier: frontend
   type: NodePort
 ---
 apiVersion: extensions/v1beta1
