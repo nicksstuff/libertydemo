@@ -17,7 +17,7 @@ node {
     }
   }
   stage('CI-Docker-Build') {
-    sh "cd '$JENKINS_HOME/jobs/$JOB_BASE_NAME/workspace/'"
+    sh "cd '$JENKINS_HOME/$JOB_BASE_NAME/workspace/'"
     sh "ls"
     //docker.withRegistry('http://mycluster.icp:8500', 'admin') {
     //sh "sudo docker build -t test ."
@@ -34,7 +34,7 @@ node {
         delivery: [
           $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
           pushVersion: '${BUILD_NUMBER}',
-          baseDir: '$JENKINS_HOME/jobs/$JOB_BASE_NAME/workspace/',
+          baseDir: '$JENKINS_HOME/$JOB_BASE_NAME/workspace/',
           fileIncludePatterns: '*.*',
           fileExcludePatterns: '',
           pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
