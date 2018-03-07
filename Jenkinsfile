@@ -30,7 +30,7 @@ node {
       siteName: 'LOCAL',
       component: [
         $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
-        componentName: 'Jenkins',
+        componentName: 'LIBERTY',
         delivery: [
           $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
           pushVersion: '${BUILD_NUMBER}',
