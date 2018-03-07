@@ -34,8 +34,8 @@ node {
         delivery: [
           $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
           pushVersion: '${BUILD_NUMBER}',
-          baseDir: '$JENKINS_HOME/jobs/DEMO Pipeline/workspace/',
-          fileIncludePatterns: '*.jar',
+          baseDir: '$JENKINS_HOME/jobs/${env.JOB_NAME}/workspace/',
+          fileIncludePatterns: '*.*',
           fileExcludePatterns: '',
           pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
           pushDescription: 'Pushed from Jenkins'
