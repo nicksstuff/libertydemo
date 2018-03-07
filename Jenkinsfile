@@ -17,7 +17,7 @@ node {
     }
   }
   stage('CI-Docker-Build') {
-    sh "cd '$JENKINS_HOME/jobs/DEMO Pipeline/workspace/'"
+    sh "cd '$JENKINS_HOME/jobs/$JOB_BASE_NAME/workspace/'"
     sh "ls"
     //docker.withRegistry('http://mycluster.icp:8500', 'admin') {
     //sh "sudo docker build -t test ."
