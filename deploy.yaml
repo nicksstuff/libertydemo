@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: master
-        image: my-image:latest
+        image: liberty_demo:demo
         resources:
           requests:
             cpu: 100m
