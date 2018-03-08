@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UrbanCode Deploy</title>
+    <title>Cloud Private DevOps Demo</title>
 
     <link rel="shortcut icon" href="./public/images/favicon.png" type="image/png" />
 
@@ -27,11 +27,17 @@
             height: 42px;
             margin-top: -12px;
         }
+        .navbar-brand-right img {
+            height: 42px;
+            margin-top: 2px;
+        }
 
         .logo-text {
             padding-left: 5px;
         }
-
+        .tools-style {
+            font-size: medium;
+        }
         html {
             background: url(./public/images/back.jpeg) no-repeat center center fixed;
             -webkit-background-size: cover;
@@ -54,19 +60,24 @@
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="./public/images/uc.png">
-                </a>
-                <a class="navbar-brand logo-text" href="https://developer.ibm.com/urbancode/">UrbanCode Deploy</a>
+              <a class="navbar-brand" target="_blank" href="https://www.ibm.com/cloud-computing/">
+                  <img alt="Brand" src="./public/images/ibm_cloud.png">
+              </a>
+
+               <a class="navbar-brand logo-text" >&nbsp;&nbsp;&nbsp;&nbsp;IBM Cloud Private DevOps Demo</a>
             </div>
 
             <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="http://docker.linux:3000/getDemo">Source</a>
-                    </li>
 
+              <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a target="_blank" href="https://github.com/niklaushirt/libertydemo">Source</a>
+                    </li>
+                    <a class="navbar-brand-right" target="_blank" href="https://developer.ibm.com/urbancode/products/urbancode-deploy/">
+                        <img alt="Brand" src="./public/images/uc.png">
+                    </a>
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -76,14 +87,24 @@
         <div class="jumbotron container">
             <table>
                 <tr>
-                    <td style="width:30%;"><img src="./public/images/newapp-icon.png"></td>
+                    <td style="width:30%;"><a  target="_blank" href="https://www.ibm.com/cloud-computing/products/ibm-cloud-private/"><img src="./public/images/cloud_private.png"></a></td>
                     <td>
-                        <h2>UrbanCode Deploy</h2>
-                        <h1>Docker Demo for Customer</h1>
+                        <h2>IBM Cloud Private - DevOps Demo</h2>
+                        <h1>Kubernetes Demo for Customer</h1>
                         <p></p>
                         <p></p>
-                        <p>Thanks for creating the <span class="blue">NodeJS Application Backend</span>.</p>
-                        <p></p>
+                        <p>Classic DevOps Toolchain containing:</p>
+                        <p><ul class="tools-style">
+                          <li>GitHub</li>
+                          <li>Jenkins</li>
+                          <li>IBM Urbancode Deploy</li>
+                          <li>IBM Cloud Private</li>
+                        </ul></p>
+
+                        <p><hr></p>
+                        <p><hr></p>
+                        <p><hr></p>
+                        <p><hr></p>
                         <p>Testing DEMO API</p>
 
                         <div id="idStatus">Testing...</div>
