@@ -43,4 +43,19 @@ node {
       ]
     ])
   }
+  stage('CD-Deploy-To-ICP') {
+   step([$class: 'UCDeployPublisher',
+        siteName: 'LOCAL',
+        deploy: [
+            $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
+            deployApp: 'DEMO',
+            deployEnv: 'TEST',
+            deployProc: 'deploy',
+            deployVersions: 'LIBERTY:${BUILD_NUMBER}',
+            //deployVersions: 'LIBERTY:49',
+
+            deployOnlyChanged: false
+        ]
+    ])
+}
 }
