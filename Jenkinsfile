@@ -1,12 +1,21 @@
+
 node {
   def mvnHome
   stage('Preparation') { // for display purposes
-    // Get some code from a GitHub repository
-    git credentialsId: 'ec8087f2-8cc0-4d65-99bc-5efdd0085d6f', url: 'https://github.com/niklaushirt/libertydemo.git'
+    withCredentials([usernamePassword(credentialsId: 'GIT', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+      // Get some code from a GitHub repository
+      //    git credentialsId: 'ec8087f2-8cc0-4d65-99bc-5efdd0085d6f', url: 'https://github.com/niklaushirt/libertydemo.git'
+      //git credentialsId: '$PASSWORD', url: 'https://github.com/niklaushirt/libertydemo.git'
+      //git credentialsId: 'ec8087f2-8cc0-4d65-99bc-5efdd0085d6f', url: 'https://github.com/niklaushirt/libertydemo.git'
+      git credentialsId: '$PASSWORD', url: 'http://9.30.250.6:31625/demo/demo.git'
+
+    }
+
     // Get the Maven tool.
     // ** NOTE: This 'M3' Maven tool must be configured
     // **       in the global configuration.
     mvnHome = tool 'M3'
+    //dockerHome = tool 'docker'
   }
   stage('CI-Build') {
     // Run the maven build
@@ -17,13 +26,20 @@ node {
     }
   }
   stage('CI-Docker-Build') {
-    sh "cd '$WORKSPACE'"
-    sh "ls"
-    //docker.withRegistry('http://mycluster.icp:8500', 'admin') {
-    //sh "sudo docker build -t test ."
-    def customImage = docker.build("liberty_demo:demo")
-    //customImage.push('demo')
-    //}
+    withCredentials([usernamePassword(credentialsId: 'ICP', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+      sh "cd '$WORKSPACE'"
+      sh "ls"
+      //docker.withRegistry('http://mycluster.icp:8500', 'admin') {
+      //sh "${dockerHome} ps"
+      //sh "${dockerHome}/bin/docker ps"
+      sh "docker build -t liberty_demo:1.${BUILD_NUMBER} ."
+      sh "docker login mycluster.icp:8500 -u $USERNAME -p $PASSWORD"
+      sh "docker tag liberty_demo:1.${BUILD_NUMBER} mycluster.icp:8500/default/liberty_demo:1.${BUILD_NUMBER}"
+      sh "docker push mycluster.icp:8500/default/liberty_demo:1.${BUILD_NUMBER}"
+      //def customImage = docker.build("liberty_demo:demo")
+      //customImage.push('demo')
+      //}
+    }
   }
   stage('CI-Push-To-UrbanCode') {
     step([$class: 'UCDeployPublisher',
@@ -57,5 +73,5 @@ node {
             deployOnlyChanged: false
         ]
     ])
-}
+  }
 }
