@@ -10,7 +10,7 @@ node {
     withCredentials([usernamePassword(credentialsId: 'GIT', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
       // Get some code from a GitHub repository
       //    git credentialsId: 'ec8087f2-8cc0-4d65-99bc-5efdd0085d6f', url: 'https://github.com/niklaushirt/libertydemo.git'
-      git credentialsId: '$PASSWORD', url: 'http://9.30.250.6:31625/demo/libertydemo.git'
+      git credentialsId: '$PASSWORD', url: 'http://9.30.250.6:32218/demo/libertydemo.git'
     }
 
     // Get the Maven tool.
@@ -89,43 +89,42 @@ node {
   //  PUSH VERSION TO UCD
   //----------------------------------------------------------------------------------------
   //----------------------------------------------------------------------------------------
-  // stage('CI-Push-To-UrbanCode') {
-  //   step([$class: 'UCDeployPublisher',
-  //     siteName: 'LOCAL',
-  //     component: [
-  //       $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
-  //       componentName: 'LIBERTY',
-  //       delivery: [
-  //         $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
-  //         pushVersion: '${BUILD_NUMBER}',
-  //         baseDir: '$WORKSPACE',
-  //         fileIncludePatterns: '*.*',
-  //         fileExcludePatterns: '',
-  //         pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
-  //         pushDescription: 'Pushed from Jenkins'
-  //       ]
-  //     ]
-  //   ])
-  // }
+   stage('CI-Push-To-UrbanCode') {
+     step([$class: 'UCDeployPublisher',
+       siteName: 'UCDS',
+       component: [
+         $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
+         componentName: 'DEMO',
+         delivery: [
+           $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
+           pushVersion: '${BUILD_NUMBER}',
+           baseDir: '/tmp/jenkins/workspace/demo/',
+           fileIncludePatterns: '*.*',
+           fileExcludePatterns: '',
+           //pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
+           pushDescription: 'Pushed from Jenkins'
+         ]
+       ]
+     ])
+   }
 
   //----------------------------------------------------------------------------------------
   //----------------------------------------------------------------------------------------
   //  DEPLOY VERSION WITH UCD
   //----------------------------------------------------------------------------------------
   //----------------------------------------------------------------------------------------
-  // stage('CD-Deploy-To-ICP') {
-  //  step([$class: 'UCDeployPublisher',
-  //       siteName: 'LOCAL',
-  //       deploy: [
-  //           $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
-  //           deployApp: 'DEMO',
-  //           deployEnv: 'TEST',
-  //           deployProc: 'deploy',
-  //           deployVersions: 'LIBERTY:${BUILD_NUMBER}',
-  //           //deployVersions: 'LIBERTY:49',
-  //
-  //           deployOnlyChanged: false
-  //       ]
-  //   ])
-  // }
+  stage('CD-Deploy-To-ICP') {
+    step([$class: 'UCDeployPublisher',
+         siteName: 'UCDS',
+         deploy: [
+             $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
+             deployApp: 'DEMO',
+             deployEnv: 'DEMO',
+             deployProc: 'deploy',
+             deployVersions: 'DEMO:${BUILD_NUMBER}',
+             //deployVersions: 'DEMO:49',
+            deployOnlyChanged: false
+         ]
+     ])
+   }
 }
